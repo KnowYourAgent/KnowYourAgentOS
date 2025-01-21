@@ -1,0 +1,115 @@
+{
+  "metadata": {
+    "id": "stablecoin-tracker",
+    "name": "Stablecoin Market Cap Tracker",
+    "description": "Track market capitalization and other metrics for major stablecoins",
+    "version": "1.0.0",
+    "author": "AI Team",
+    "category": "FINANCE",
+    "provider": {
+      "name": "CoinMarketCap",
+      "baseUrl": "https://pro-api.coinmarketcap.com/v1",
+      "authType": "apiKey",
+      "authConfig": {
+        "apiKeyHeader": "X-CMC_PRO_API_KEY",
+        "apiKeyValue": "${COINMARKETCAP_API_KEY}"
+      }
+    },
+    "rateLimit": {
+      "requests": 30,
+      "period": "minute"
+    }
+  },
+  "parameters": [
+    {
+      "name": "stablecoins",
+      "type": "array",
+      "description": "List of stablecoin symbols to track",
+      "required": false,
+      "default": ["USDT", "USDC", "DAI", "BUSD"],
+      "items": {
+        "type": "string",
+        "enum": ["USDT", "USDC", "DAI", "BUSD", "TUSD", "USDP", "GUSD"]
+      }
+    },
+    {
+      "name": "metrics",
+      "type": "array",
+      "description": "Metrics to retrieve for each stablecoin",
+      "required": false,
+      "default": ["market_cap", "volume_24h", "percent_change_24h"],
+      "items": {
+        "type": "string",
+        "enum": [
+          "market_cap",
+          "volume_24h",
+          "percent_change_24h",
+          "circulating_supply",
+          "total_supply"
+        ]
+      }
+    },
+    {
+      "name": "convert",
+      "type": "string",
+      "description": "Currency to convert values to",
+      "required": false,
+      "default": "USD",
+      "enum": ["USD", "EUR", "BTC", "ETH"]
+    }
+  ],
+  "response": {
+    "schema": {
+      "type": "object",
+      "properties": {
+        "timestamp": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "symbol": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "market_cap": {
+                "type": "number"
+              },
+              "volume_24h": {
+                "type": "number"
+              },
+              "percent_change_24h": {
+                "type": "number"
+              },
+              "circulating_supply": {
+                "type": "number"
+              },
+              "total_supply": {
+                "type": "number"
+              }
+            }
+          }
+        }
+      }
+    },
+    "example": {
+      "timestamp": "2024-01-14T18:30:00Z",
+      "data": [
+        {
+          "symbol": "USDT",
+          "name": "Tether",
+          "market_cap": 83526978462,
+          "volume_24h": 24819563721,
+          "percent_change_24h": 0.01,
+          "circulating_supply": 83526978462,
+          "total_supply": 83526978462
+        }
+      ]
+    }
+  }
+} 

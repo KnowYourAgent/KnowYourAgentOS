@@ -1,0 +1,70 @@
+{
+  "metadata": {
+    "id": "weather-tool",
+    "name": "Weather Information",
+    "description": "Get weather data for any location",
+    "version": "1.0.0",
+    "author": "AI Team",
+    "category": "WEATHER",
+    "provider": {
+      "name": "OpenMeteo",
+      "baseUrl": "https://api.open-meteo.com/v1",
+      "authType": "none"
+    },
+    "rateLimit": {
+      "requests": 60,
+      "period": "minute"
+    }
+  },
+  "parameters": [
+    {
+      "name": "location",
+      "type": "object",
+      "description": "Location coordinates",
+      "required": true,
+      "properties": {
+        "latitude": {
+          "name": "latitude",
+          "type": "number",
+          "description": "Latitude coordinate",
+          "required": true
+        },
+        "longitude": {
+          "name": "longitude",
+          "type": "number",
+          "description": "Longitude coordinate",
+          "required": true
+        }
+      }
+    },
+    {
+      "name": "units",
+      "type": "string",
+      "description": "Temperature units",
+      "required": false,
+      "default": "celsius",
+      "enum": ["celsius", "fahrenheit"]
+    }
+  ],
+  "response": {
+    "schema": {
+      "type": "object",
+      "properties": {
+        "temperature": {
+          "type": "number"
+        },
+        "humidity": {
+          "type": "number"
+        },
+        "conditions": {
+          "type": "string"
+        }
+      }
+    },
+    "example": {
+      "temperature": 22.5,
+      "humidity": 65,
+      "conditions": "partly cloudy"
+    }
+  }
+} 

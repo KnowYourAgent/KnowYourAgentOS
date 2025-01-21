@@ -1,0 +1,31 @@
+{
+  "name": "Crypto Market Analysis",
+  "description": "Analyzes blockchain data with market and geographic context",
+  "version": "1.0.0",
+  "parallelExecution": true,
+  "maxToolsPerAnomaly": 3,
+  "tools": [
+    {
+      "id": "stablecoin-tracker",
+      "enabled": true,
+      "priority": 1,
+      "conditions": {
+        "anomalyTypes": ["STABLECOIN_DEVIATION", "PRICE_MANIPULATION"],
+        "minSeverity": "medium"
+      },
+      "rateLimit": {
+        "maxInvocations": 100,
+        "periodInMinutes": 60
+      }
+    },
+    {
+      "id": "weather-tool",
+      "enabled": true,
+      "priority": 2,
+      "conditions": {
+        "anomalyTypes": ["GEOGRAPHIC_PATTERN"],
+        "requiredFields": ["location"]
+      }
+    }
+  ]
+} 
